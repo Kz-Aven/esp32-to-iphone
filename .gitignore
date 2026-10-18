@@ -1,0 +1,28 @@
+# Credentials and device configuration
+.env
+.env.*
+!.env.example
+hardware/hid_bridge/secrets.h
+
+# Python and local runtime data
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.local-data/
+*.log
+
+# Firmware and toolchain output
+hardware/build/
+hardware/hid_bridge/build/
+.arduino/
+.tools/
+build/
+dist/
+
+# Editors and macOS
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP32 to iPhone</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main>
+  <!-- 1. the real phone -->
+  <section class="col phone">
+    <div class="screen">
+      <img id="live" alt="">
+      <div class="hint" id="hint" data-i18n="waiting"></div>
+    </div>
+    <p class="caption" id="caption" data-i18n="liveCaption"></p>
+    <button class="estop" id="estop" data-i18n="estop"></button>
+    <p class="caption" data-i18n="estopHint"></p>
+    <details class="manual">
+      <summary data-i18n="manual"></summary>
+      <div class="row"><button data-post="/api/home" data-i18n="home"></button><button data-post="/api/back" data-i18n="back"></button><button id="cal" data-i18n="calibrate"></button></div>
+      <div class="row"><input id="text" data-i18n-ph="typePh"><button id="type" data-i18n="type"></button></div>
+      <div class="row"><input id="key" data-i18n-ph="keyPh"><button id="press" data-i18n="press"></button></div>
+    </details>
+  </section>
+
+  <!-- 2. live log, both languages -->
+  <section class="col log">
+    <header class="colhead"><h2 data-i18n="log"></h2><span class="live-dot" id="live-dot"></span></header>
+    <ol id="log"></ol>
+  </section>
+
+  <!-- 3. task, progress and the step wall -->
+  <section class="col work">
+    <header class="top">
+      <div><h1>ESP32 to iPhone</h1><p data-i18n="tagline"></p></div>
+      <div class="models">
+        <div><span data-i18n="decision"></span><b id="m-planner"></b><small id="m-planner-s"></small></div>
+        <div><span data-i18n="executor"></span><b id="m-actor"></b><small id="m-actor-s"></small></div>
+      </div>
+      <button class="motion" id="motion"></button>
+      <div class="lang" id="lang"><button data-lang="en">EN</button><button data-lang="zh">中文</button></div>
+    </header>
+
+    <ol class="setup" id="setup">
+      <li data-key="device"><b data-i18n="s1"></b><span data-i18n="s1d"></span></li>
+      <li data-key="screen"><b data-i18n="s2"></b><span data-i18n="s2d"></span></li>
+      <li data-key="calibrated"><b data-i18n="s3"></b><span data-i18n="s3d"></span></li>
+    </ol>
+
+    <div class="task">
+      <textarea id="task" rows="2" data-i18n-ph="taskPh"></textarea>
+      <div class="row">
+        <button class="primary" id="run" data-i18n="start"></button>
+        <button id="stop" data-i18n="stop" hidden></button>
+        <button id="clear" data-i18n="clear" hidden></button>
+        <div class="examples" id="examples"></div>
+      </div>
+      <p class="msg" id="msg"></p>
+    </div>
+
+    <div class="summary" id="summary" hidden>
+      <div><b id="st-state"></b><span data-i18n="status"></span></div>
+      <div><b id="st-steps"></b><span data-i18n="actions"></span></div>
+      <div><b id="st-time"></b><span data-i18n="total"></span></div>
+      <div><b id="st-step"></b><span data-i18n="perAction"></span></div>
+    </div>
+
+    <details class="plan" id="plan" hidden open><summary data-i18n="plan"></summary><ol id="plan-list"></ol></details>
+
+    <div class="wall" id="wall"></div>
+  </section>
+</main>
+
+<dialog id="zoom"><div class="zoombox"><img id="zoom-img" alt=""><div class="overlay" id="zoom-overlay"></div></div><p id="zoom-text"></p></dialog>
+
+<script src="/static/i18n.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

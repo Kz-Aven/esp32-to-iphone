@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --frozen --extra dev --extra mcp --python "${{ matrix.python }}"
+      - run: uv run --frozen --extra dev --extra mcp ruff check .
+      - run: HIDAGENT_DATA="$RUNNER_TEMP/esp32-to-iphone-test" uv run --frozen --extra dev --extra mcp pytest -q
+
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: arduino/setup-arduino-cli@v2
+      - run: |
+          arduino-cli --config-file arduino-cli.yaml core update-index
+          arduino-cli --config-file arduino-cli.yaml core install esp32:esp32@3.3.12
+      - name: Build
+        run: |
+          cp hardware/hid_bridge/secrets.example.h hardware/hid_bridge/secrets.h
+          ./hardware/flash.sh --build-only
