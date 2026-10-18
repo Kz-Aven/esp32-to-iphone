@@ -10,7 +10,7 @@
 
 ESP32 to iPhone 是一个低成本的 iPhone 自动化与 MCP 手机控制项目：用 AirPlay 获取屏幕画面，用 ESP32-S3 模拟 USB 鼠标和键盘，再把截图、点击、滑动、输入等能力封装成 MCP 工具。Codex 或其他具备视觉和工具调用能力的 Agent，可以使用自己的模型看图、决定动作并核对结果。
 
-无需越狱、无需 Apple 开发者账号、无需在手机安装测试 App。默认不需要为本项目额外配置模型 API Key。
+无需越狱、无需 Apple 开发者账号、无需在手机安装测试 App。
 
 **[观看演示](docs/assets/demo.mp4) · [从零搭建](docs/setup.md) · [MCP 使用指引](mcp/README.md) · [报告问题](https://github.com/Kz-Aven/esp32-to-iphone/issues)**
 
@@ -256,7 +256,7 @@ codex mcp get iphone --json
 
 **手机已有镜像，但无法点击？** AirPlay 与 USB HID 是两条链路。检查解锁状态、辅助触控、原生 USB 接口和指针校准。
 
-**必须配置 GLM 吗？** 不需要。默认使用宿主 Agent 的视觉模型。只有用户主动选择备用执行器时才配置额外模型，见 [备用模型说明](mcp/README.md#可选备用模型)。
+**必须配置视觉大模型吗？** 不需要。默认使用宿主 Agent 的视觉模型。只有用户主动选择备用执行器时才配置额外模型，见 [备用模型说明](mcp/README.md#可选备用模型)。
 
 更多排查见 [搭建指南](docs/setup.md) 和 [MCP 常见问题](mcp/README.md#常见问题)。
 
